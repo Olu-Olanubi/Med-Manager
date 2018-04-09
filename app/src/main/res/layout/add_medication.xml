@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin = "16dp">
+
+    <EditText
+        android:id="@+id/drug_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Name of drug"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="1"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/drug_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Description"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
+
+    <!--
+    <EditText
+        android:id="@+id/drug_start_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Start date"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="1"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/drug_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="End date"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="1"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/drug_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Interval"
+        android:inputType="number"
+        android:lines="1"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
+        -->
+</LinearLayout>
