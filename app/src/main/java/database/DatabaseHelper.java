@@ -3,6 +3,7 @@ package database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
@@ -23,7 +24,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // create drugs table
-        db.execSQL(Drugs.CREATE_TABLE);
+        try {
+            db.execSQL(Drugs.CREATE_TABLE);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -35,18 +40,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertDrug(String drugName, String description /**, int interval, String startDate, String endDate*/){
+    public long insertDrug(String drugName, String description, String interval, String startDate, String endDate){
 // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(Drugs.COLUMN_NAME, drugName);
         values.put(Drugs.COLUMN_DESC, description);
-        //values.put(Drugs.COLUMN_INTERVAL, interval);
-         /**
+        values.put(Drugs.COLUMN_INTERVAL, interval);
         values.put(Drugs.COLUMN_START_DATE, startDate);
         values.put(Drugs.COLUMN_END_DATE, endDate);
-        */
+
         // insert row
         long id = db.insert(Drugs.TABLE_NAME, null, values);
 
@@ -62,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(Drugs.TABLE_NAME,
-                new String[]{Drugs.COLUMN_ID, Drugs.COLUMN_NAME, Drugs.COLUMN_DESC /**, Drugs.COLUMN_INTERVAL, Drugs.COLUMN_START_DATE, Drugs.COLUMN_END_DATE*/},
+                new String[]{Drugs.COLUMN_ID, Drugs.COLUMN_NAME, Drugs.COLUMN_DESC, Drugs.COLUMN_INTERVAL, Drugs.COLUMN_START_DATE, Drugs.COLUMN_END_DATE},
                 Drugs.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -73,12 +77,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Drugs drugs = new Drugs(
                 cursor.getInt(cursor.getColumnIndex(Drugs.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_NAME)),
-                cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_DESC))
-                /**,
-                cursor.getInt(cursor.getColumnIndex(Drugs.COLUMN_INTERVAL))
-
+                cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_DESC)),
+                cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_INTERVAL)),
                 cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_START_DATE)),
-                cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_END_DATE))*/);
+                cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_END_DATE)));
 
         // close the db connection
         cursor.close();
@@ -103,10 +105,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 drug.setId(cursor.getInt(cursor.getColumnIndex(Drugs.COLUMN_ID)));
                 drug.setDrugName(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_NAME)));
                 drug.setDescription(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_DESC)));
-               //drug.setInterval(cursor.getInt(cursor.getColumnIndex(Drugs.COLUMN_INTERVAL)));
-               // drug.setStartDate(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_START_DATE)));
-               // drug.setEndDate(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_END_DATE)));
-
+                drug.setInterval(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_INTERVAL)));
+                drug.setStartDate(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_START_DATE)));
+                drug.setEndDate(cursor.getString(cursor.getColumnIndex(Drugs.COLUMN_END_DATE)));
                 drugs.add(drug);
             } while (cursor.moveToNext());
         }
@@ -139,9 +140,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Drugs.COLUMN_NAME, drug.getDrugName());
         values.put(Drugs.COLUMN_DESC, drug.getDescription());
-        //values.put(Drugs.COLUMN_INTERVAL, drug.getInterval());
-       // values.put(Drugs.COLUMN_START_DATE, drug.getStartDate());
-       // values.put(Drugs.COLUMN_END_DATE, drug.getEndDate());
+        values.put(Drugs.COLUMN_INTERVAL, drug.getInterval());
+        values.put(Drugs.COLUMN_START_DATE, drug.getStartDate());
+        values.put(Drugs.COLUMN_END_DATE, drug.getEndDate());
 
         // updating row
         return db.update(Drugs.TABLE_NAME, values, Drugs.COLUMN_ID + " = ?",

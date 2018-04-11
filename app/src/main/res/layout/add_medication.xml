@@ -61,7 +61,7 @@
         android:textColor = "#232323"
         android:textColorHint="#89c3c3c3"
         android:textSize="20sp" />
-
+        -->
     <EditText
         android:id="@+id/drug_interval"
         android:layout_width="match_parent"
@@ -75,5 +75,32 @@
         android:textColor = "#232323"
         android:textColorHint="#89c3c3c3"
         android:textSize="20sp" />
-        -->
+
+    <EditText
+        android:id="@+id/drug_start_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Start date"
+        android:inputType="date"
+        android:lines="1"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/drug_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "12dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="End date"
+        android:inputType="date"
+        android:lines="1"
+        android:textColor = "#232323"
+        android:textColorHint="#89c3c3c3"
+        android:textSize="20sp" />
 </LinearLayout>

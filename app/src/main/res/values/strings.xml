@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Med-Manager</string>
+    <string name="welcome_text">Welcome to MedManager</string>
+    <string name="signin_with_google">Sign in with Google</string>
+    <string name="btn_view_my_medications">View My Medications</string>
+    <string name="btn_logout">Log out</string>
 
 </resources>

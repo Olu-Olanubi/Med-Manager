@@ -25,19 +25,16 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, description;/** interval; startDate, endDate;*/
+        public TextView name, description, interval, startDate, endDate;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             description = itemView.findViewById(R.id.description);
-            /**
             interval = itemView.findViewById(R.id.interval);
-
              startDate = itemView.findViewById(R.id.start_date);
              endDate = itemView.findViewById(R.id.end_date);
 
-             */
         }
     }
 
@@ -55,9 +52,9 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.MyViewHolder> 
 
         holder.name.setText(drug.getDrugName());
         holder.description.setText(drug.getDescription());
-        //holder.interval.setText(String.valueOf(drug.getInterval()));
-       // holder.startDate.setText(formatDate(drug.getStartDate()));
-       // holder.endDate.setText(formatDate(drug.getEndDate()));
+        holder.interval.setText(drug.getInterval());
+        holder.startDate.setText(drug.getStartDate());
+        holder.endDate.setText(drug.getEndDate());
     }
 
     @Override
@@ -69,9 +66,9 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.MyViewHolder> 
     /**
     private String formatDate(String dateStr) {
         try {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
             Date date = fmt.parse(dateStr);
-            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-YYYY");
             return fmtOut.format(date);
         } catch (ParseException e) {
 
@@ -79,5 +76,5 @@ public class DrugAdapter extends RecyclerView.Adapter<DrugAdapter.MyViewHolder> 
 
         return "";
     }
-     */
+    */
 }

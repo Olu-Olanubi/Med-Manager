@@ -21,6 +21,7 @@ import java.util.List;
 
 import database.DatabaseHelper;
 import database.Drugs;
+import utils.MyDividerItemDecoration;
 import utils.RecyclerTouchListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
 
         toggleEmptyNotes();
@@ -86,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
      * Inserting new medication in db
      * and refreshing the list
      */
-    private void createDrug(String drugName, String description /**, int interval , String startDate, String endDate*/) {
+    private void createDrug(String drugName, String description, String interval, String startDate, String endDate) {
         // inserting note in db and getting
         // newly inserted note id
-        long id = db.insertDrug(drugName, description /**, interval, startDate, endDate*/);
+        long id = db.insertDrug(drugName, description, interval, startDate, endDate);
 
         // get the newly inserted note from db
         Drugs d = db.getDrugs(id);
@@ -110,17 +111,16 @@ public class MainActivity extends AppCompatActivity {
      * Updating note in db and updating
      * item in the list by its position
      */
-    private void updateDrug(String drugName, String description /**, int interval, String startDate, String endDate*/, int position) {
+    private void updateDrug(String drugName, String description, String interval, String startDate, String endDate, int position) {
         Drugs d = drugsList.get(position);
         // updating drug data text
         d.setDrugName(drugName);
         d.setDescription(description);
-        /**
-        d.setInterval(interval);
 
+        d.setInterval(interval);
         d.setStartDate(startDate);
         d.setEndDate(endDate);
-         */
+
 
         // updating a medication in db
         db.updateDrug(d);
@@ -185,20 +185,19 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText inputDrugName = view.findViewById(R.id.drug_name);
         final EditText inputDescription = view.findViewById(R.id.drug_description);
-        //final EditText inputInterval = view.findViewById(R.id.drug_interval);
-        //final EditText inputStartDate = view.findViewById(R.id.drug_start_date);
-        //final EditText inputEndDate = view.findViewById(R.id.drug_end_date);
+        final EditText inputInterval = view.findViewById(R.id.drug_interval);
+        final EditText inputStartDate = view.findViewById(R.id.drug_start_date);
+        final EditText inputEndDate = view.findViewById(R.id.drug_end_date);
         //TextView dialogTitle = view.findViewById(R.id.dialog_title);
         //dialogTitle.setText(!shouldUpdate ? getString(R.string.lbl_new_note_title) : getString(R.string.lbl_edit_note_title));
 
         if (shouldUpdate && drug != null) {
             inputDrugName.setText(drug.getDrugName());
             inputDescription.setText(drug.getDescription());
-            //inputInterval.setText(String.valueOf(drug.getInterval()));
-             /**
+            inputInterval.setText(drug.getInterval());
             inputStartDate.setText(drug.getStartDate());
             inputEndDate.setText(drug.getEndDate());
-             */
+
 
         }
         alertDialogBuilderUserInput
@@ -232,10 +231,10 @@ public class MainActivity extends AppCompatActivity {
                 // check if user updating med list
                 if (shouldUpdate && drug != null) {
                     // update med list by it's id
-                    updateDrug(inputDrugName.getText().toString(), inputDescription.getText().toString()/**, Integer.parseInt(inputInterval.getText().toString())*/, position);
+                    updateDrug(inputDrugName.getText().toString(), inputDescription.getText().toString(), inputInterval.getText().toString(), inputStartDate.getText().toString(), inputEndDate.getText().toString(), position);
                 } else {
                     // create new med list
-                    createDrug(inputDrugName.getText().toString(), inputDescription.getText().toString()); /**,Integer.parseInt(inputInterval.getText().toString()));*/
+                    createDrug(inputDrugName.getText().toString(), inputDescription.getText().toString(), inputInterval.getText().toString(), inputStartDate.getText().toString(), inputEndDate.getText().toString()); /**,Integer.parseInt(inputInterval.getText().toString()));*/
                 }
             }
         });
