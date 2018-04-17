@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/search_medications"
+        android:title="Search Medications" />
+
+    <item android:id="@+id/refresh_list"
+        android:title="Refresh List" />
+
+    <item android:id="@+id/delete_all"
+        android:title="Delete All" />
+
+    <item android:id="@+id/exit"
+        android:title="Exit" />
+
+</menu>
