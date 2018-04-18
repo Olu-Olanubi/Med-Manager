@@ -22,5 +22,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SignIn" />
         </activity>
+        <provider android:authorities="com.example.user.med_manager"
+            android:name="database.DrugContentProvider"
+            android:exported="true"/>
+
+
     </application>
 </manifest>

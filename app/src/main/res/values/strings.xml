@@ -4,5 +4,8 @@
     <string name="signin_with_google">Sign in with Google</string>
     <string name="btn_view_my_medications">View My Medications</string>
     <string name="btn_logout">Log out</string>
+    <string name="lbl_new_medication_dialog">Add a new medication</string>
+    <string name="lbl_edit_medication_dialog">Edit medication</string>
+    <string name="alert_search">Search for medication name: </string>
 
 </resources>

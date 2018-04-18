@@ -1,5 +1,7 @@
 package database;
 
+import android.net.Uri;
+
 public class Drugs {
     public static final String TABLE_NAME = "DRUGS";
     public static final String COLUMN_ID = "id";
@@ -9,6 +11,16 @@ public class Drugs {
     public static final String COLUMN_START_DATE = "StartDate";
     public static final String COLUMN_END_DATE = "EndDate";
 
+
+    //define URI constants
+    public static final String AUTHORITY = "com.example.user.med_manager";
+
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+
+    public static final String PATH_TABLE_NAME = "DRUGS";
+
+    //public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_TABLE_NAME).build();
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_TABLE_NAME);
     private int id;
     //private int interval;
     private String drugName, description, interval,startDate, endDate;

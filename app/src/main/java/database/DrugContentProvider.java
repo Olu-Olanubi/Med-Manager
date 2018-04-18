@@ -43,9 +43,9 @@ public class DrugContentProvider extends ContentProvider {
           For each kind of uri you may want to access, add the corresponding match with addURI.
           The two calls below add matches for the task directory and a single item by ID.
          */
-        uriMatcher.addURI(Drugs.AUTHORITY, Drugs.PATH_DRUG_NAME, TASKS);
-        uriMatcher.addURI(Drugs.AUTHORITY, Drugs.PATH_DRUG_NAME + "/#", TASK_WITH_ID);
-        uriMatcher.addURI(Drugs.AUTHORITY,Drugs.PATH_DRUG_NAME + "/*", TASK_WITH_NAME );
+        uriMatcher.addURI(Drugs.AUTHORITY, Drugs.PATH_TABLE_NAME, TASKS);
+        uriMatcher.addURI(Drugs.AUTHORITY, Drugs.PATH_TABLE_NAME + "/#", TASK_WITH_ID);
+        uriMatcher.addURI(Drugs.AUTHORITY,Drugs.PATH_TABLE_NAME + "/*", TASK_WITH_NAME );
 
         return uriMatcher;
     }
@@ -80,16 +80,22 @@ public class DrugContentProvider extends ContentProvider {
                         sortOrder);
                 break;
             case TASK_WITH_ID:
-                retCursor = db.query(Drugs.TABLE_NAME,
-                        new String[]{Drugs.COLUMN_ID, Drugs.COLUMN_NAME, Drugs.COLUMN_DESC, Drugs.COLUMN_INTERVAL, Drugs.COLUMN_START_DATE, Drugs.COLUMN_END_DATE},
+                retCursor = db.query(TABLE_NAME,
+                        projection,
                         Drugs.COLUMN_ID + "=?",
-                        new String[]{String.valueOf(ContentUris.parseId(uri))}, null, null, "ASC");
+                        new String[]{String.valueOf(ContentUris.parseId(uri))},
+                        null,
+                        null,
+                        sortOrder);
                 break;
             case TASK_WITH_NAME:
-                retCursor = db.query(Drugs.TABLE_NAME,
-                        new String[]{Drugs.COLUMN_ID, Drugs.COLUMN_NAME, Drugs.COLUMN_DESC, Drugs.COLUMN_INTERVAL, Drugs.COLUMN_START_DATE, Drugs.COLUMN_END_DATE},
+                retCursor = db.query(TABLE_NAME,
+                        projection,
                         Drugs.COLUMN_NAME + "=?",
-                        new String[]{uri.getLastPathSegment()}, null, null, "ASC");
+                        new String[]{uri.getLastPathSegment()},
+                        null,
+                        null,
+                        sortOrder);
                 break;
             // Default exception
             default:
@@ -151,10 +157,12 @@ public class DrugContentProvider extends ContentProvider {
         // Write the code to delete a single row of data
         // [Hint] Use selections to delete an item by its row ID
         switch (match) {
+            case TASKS:
+                tasksDeleted = db.delete(TABLE_NAME, null, null);
+                break;
             // Handle the single item case, recognized by the ID included in the URI path
             case TASK_WITH_ID:
                 // Get the task ID from the URI path
-                //String id = uri.getPathSegments().get(1);
                 // Use selections/selectionArgs to filter for this ID
                 tasksDeleted = db.delete(TABLE_NAME, Drugs.COLUMN_ID +  "= ?", new String[]{String.valueOf(ContentUris.parseId(uri))});
                 break;
@@ -186,7 +194,6 @@ public class DrugContentProvider extends ContentProvider {
             // Handle the single item case, recognized by the ID included in the URI path
             case TASK_WITH_ID:
                 // Get the task ID from the URI path
-                //String id = uri.getPathSegments().get(1);
                 // Use selections/selectionArgs to filter for this ID
                 drugsUpdated = db.update(Drugs.TABLE_NAME, values, Drugs.COLUMN_ID + " = ?",
                         new String[] { String.valueOf(ContentUris.parseId(uri)) });
